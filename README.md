@@ -34,3 +34,13 @@ Grafana on port 3000
 Prometheus client runns on port 3333
 
 Start `serial-ingestion.py` and let prometheus scrape localhost:3333
+
+## Autostart on boot
+
+```
+sudo crontab -e
+
+
+>>> @reboot /usr/local/bin/forever start -c /usr/bin/python3.7 /home/pi/soil-data/serial-ingestion.py
+
+```
