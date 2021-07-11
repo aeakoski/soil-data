@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import serial
+import time
 from prometheus_client import start_http_server, Gauge, Counter
 
 SOIL_MOISTURE = Gauge('SOIL_MOISTURE', 'Moisture of the soil', ["location", "unit"])
@@ -17,9 +18,9 @@ if __name__ == '__main__':
     print("Starting prometheus server")
     start_http_server(3333)
     while True:
+        time.sleep(0.5)
         if ser.in_waiting <= 0:
             continue
-
         line = ser.readline().decode('utf-8').rstrip()
         try:
             location = line.split(":")[0]
